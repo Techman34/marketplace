@@ -28,7 +28,7 @@ export default class EstateCard extends React.PureComponent {
 
     return (
       <Card className="EstateCard">
-        <Link to={locations.estateDetail(estate.asset_id)}>
+        <Link to={locations.estateDetail(estate.token_id)}>
           <div className="preview">
             <ParcelPreview
               x={x}

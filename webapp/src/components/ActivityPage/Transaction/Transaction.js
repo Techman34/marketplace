@@ -114,8 +114,8 @@ export default class Transaction extends React.PureComponent {
     )
   }
 
-  renderEstateLink(assetId) {
-    return <Link to={locations.estateDetail(assetId)}>{assetId}</Link>
+  renderEstateLink(tokenId) {
+    return <Link to={locations.estateDetail(tokenId)}>{tokenId}</Link>
   }
 
   renderText() {
@@ -274,7 +274,7 @@ export default class Transaction extends React.PureComponent {
       case EDIT_ESTATE_PARCELS_SUCCESS: {
         const { estate, type, parcels } = payload
         return t_html('transaction.edit_estate_parcels', {
-          estate_id: this.renderEstateLink(estate.asset_id),
+          estate_id: this.renderEstateLink(estate.token_id),
           action:
             type === ADD_PARCELS ? t('global.added') : t('global.removed'),
           parcels_link: this.renderParcelsLink(parcels)
@@ -283,7 +283,7 @@ export default class Transaction extends React.PureComponent {
       case EDIT_ESTATE_METADATA_SUCCESS: {
         const { estate } = payload
         return t_html('transaction.edit_estate_metadata', {
-          estate_id: this.renderEstateLink(estate.asset_id),
+          estate_id: this.renderEstateLink(estate.token_id),
           name: estate.data.name,
           description: estate.data.description
         })
@@ -291,7 +291,7 @@ export default class Transaction extends React.PureComponent {
       case DELETE_ESTATE_SUCCESS: {
         const { estate } = payload
         return t_html('transaction.delete_estate', {
-          estate_id: estate.asset_id
+          estate_id: estate.token_id
         })
       }
       default:
@@ -308,7 +308,7 @@ export default class Transaction extends React.PureComponent {
         to={
           isNewAsset(estate)
             ? locations.parcelMapDetail(x, y, buildCoordinate(x, y))
-            : locations.estateDetail(estate.asset_id)
+            : locations.estateDetail(estate.token_id)
         }
       >
         <ParcelPreview

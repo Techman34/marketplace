@@ -40,10 +40,10 @@ export const FETCH_ESTATE_REQUEST = '[Request] Fetch Estate'
 export const FETCH_ESTATE_SUCCESS = '[Success] Fetch Estate'
 export const FETCH_ESTATE_FAILURE = '[Failure] Fetch Estate'
 
-export function fetchEstateRequest(assetId) {
+export function fetchEstateRequest(tokenId) {
   return {
     type: FETCH_ESTATE_REQUEST,
-    assetId
+    tokenId
   }
 }
 
@@ -55,10 +55,9 @@ export function fetchEstateSuccess(id, estate) {
   }
 }
 
-export function fetchEstateFailure(id, error) {
+export function fetchEstateFailure(error) {
   return {
     type: FETCH_ESTATE_FAILURE,
-    id,
     error
   }
 }
@@ -82,7 +81,7 @@ export function editEstateParcelsSuccess(txHash, estate, parcels, type) {
       estate,
       type,
       parcels,
-      asset_id: estate.asset_id
+      token_id: estate.token_id
     }),
     actionType: type,
     estate,
@@ -114,7 +113,7 @@ export function editEstateMetadataSuccess(txHash, estate) {
     ...buildTransactionAction(txHash, {
       estate: estate,
       tx_hash: txHash,
-      asset_id: estate.asset_id
+      token_id: estate.token_id
     }),
     estate
   }
@@ -144,7 +143,7 @@ export function deleteEstateSuccess(txHash, estate) {
     ...buildTransactionAction(txHash, {
       estate: estate,
       tx_hash: txHash,
-      asset_id: estate.asset_id
+      token_id: estate.token_id
     }),
     estate
   }
