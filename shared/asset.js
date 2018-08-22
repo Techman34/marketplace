@@ -168,7 +168,9 @@ export function getType(asset, publications, wallet) {
   }
 
   if (wallet && isOwner(wallet, asset.id)) {
-    return isOnSale(asset, publications) ? TYPES.myParcelsOnSale : TYPES.myParcels
+    return isOnSale(asset, publications)
+      ? TYPES.myParcelsOnSale
+      : TYPES.myParcels
   }
 
   if (!asset.owner && !asset.district_id) {
