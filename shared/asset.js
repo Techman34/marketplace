@@ -186,7 +186,7 @@ export function isValidDescription(description) {
   return description <= 140
 }
 
-export const ASSET_TYPE = Object.freeze({
+export const ASSET_TYPES = Object.freeze({
   estate: 'estate',
   parcel: 'parcel'
 })
