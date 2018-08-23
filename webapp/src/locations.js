@@ -42,9 +42,9 @@ export const locations = {
 
   estateDetail: (tokenId = params.tokenId) => `/estates/${tokenId}/detail`,
 
-  ediEstateParcels: (tokenId = params.tokenId) =>
+  editEstateParcels: (tokenId = params.tokenId) =>
     `/estates/${tokenId}/edit-parcels`,
-  ediEstateMetadata: (tokenId = params.tokenId) =>
+  editEstateMetadata: (tokenId = params.tokenId) =>
     `/estates/${tokenId}/edit-metadata`,
 
   deleteEstate: (tokenId = params.tokenId) =>
