@@ -19,7 +19,6 @@ export default class ParcelDetailPage extends React.PureComponent {
     user: PropTypes.string,
     onFetchParcelPublications: PropTypes.func.isRequired,
     onFetchActiveParcelMortgages: PropTypes.func.isRequired,
-    onBuy: PropTypes.func.isRequired,
     onAssetClick: PropTypes.func.isRequired
   }
 
@@ -52,7 +51,7 @@ export default class ParcelDetailPage extends React.PureComponent {
   }
 
   render() {
-    const { x, y, publications, districts, mortgage, onBuy } = this.props
+    const { x, y, publications, districts, mortgage } = this.props
 
     return (
       <div className="ParcelDetailPage">
@@ -65,7 +64,6 @@ export default class ParcelDetailPage extends React.PureComponent {
                 isOwner={isOwner}
                 publications={publications}
                 districts={districts}
-                onBuy={onBuy}
                 mortgage={mortgage}
               />
             </AssetDetailPage>

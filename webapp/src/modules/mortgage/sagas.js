@@ -145,7 +145,7 @@ function* handleCreateMortgageRequest(action) {
     )
 
     yield put(createMortgageSuccess(mortgageReceipt, parcel))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(createMortgageFailure(error.message))
   }
@@ -161,7 +161,7 @@ function* handleCancelMortgageRequest(action) {
     )
 
     yield put(cancelMortgageSuccess(mortgageCancelReceipt, assetId))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(cancelMortgageFailure(error.message))
   }
@@ -200,7 +200,7 @@ function* handlePayMortgageRequest(action) {
     )
 
     yield put(payMortgageSuccess(payMortgageReceipt, assetId, amount))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(payMortgageFailure(error.message))
   }
@@ -220,7 +220,7 @@ function* handleClaimMortgageResolutionRequest(action) {
     yield put(
       claimMortgageResolutionSuccess(claimMortgageResolutionReceipt, assetId)
     )
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(claimMortgageResolutionFailure(error.message))
   }

@@ -106,7 +106,7 @@ export default class Transaction extends React.PureComponent {
     return (
       <React.Fragment>
         {parcels.map((p, index) => (
-          <span key={buildCoordinate(p.x, p.y)} className="parcels-link">
+          <span key={index} className="parcels-link">
             {this.renderParcelLink(p.x, p.y)}
           </span>
         ))}
@@ -146,7 +146,7 @@ export default class Transaction extends React.PureComponent {
         return t_html('transaction.transfer_mana', {
           mana: formatMana(mana, ''),
           address_link: (
-            <Link to={locations.profilePage(address)}>{address}</Link>
+            <Link to={locations.profilePageDefault(address)}>{address}</Link>
           )
         })
       }
@@ -167,7 +167,7 @@ export default class Transaction extends React.PureComponent {
           {
             parcel_link: this.renderParcelLink(x, y),
             address_link: (
-              <Link to={locations.profilePage(address)}>{address}</Link>
+              <Link to={locations.profilePageDefault(address)}>{address}</Link>
             )
           }
         )
@@ -179,7 +179,7 @@ export default class Transaction extends React.PureComponent {
         return t_html('transaction.transfer', {
           parcel_link: this.renderParcelLink(x, y),
           owner_link: (
-            <Link to={locations.profilePage(newOwner)}>{newOwner}</Link>
+            <Link to={locations.profilePageDefault(newOwner)}>{newOwner}</Link>
           )
         })
       }

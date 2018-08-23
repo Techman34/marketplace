@@ -1,54 +1,45 @@
 import { isParcel } from 'shared/parcel'
 
 export const locations = {
-  root: '/',
+  root: () => '/',
 
-  profile: '/address/:address/:tab',
-  profilePage: (address, tab = PROFILE_PAGE_TABS.parcels) =>
+  // Addresses
+
+  profilePageDefault: (address = ':address', tab = PROFILE_PAGE_TABS.parcels) =>
+    locations.profilePage(address, PROFILE_PAGE_TABS.parcels),
+
+  profilePage: (address = ':address', tab = ':tab') =>
     `/address/${address}/${tab}`,
 
-  parcelMap: '/:x/:y',
-  parcelMapDetail: (x, y, marker) =>
+  // Parcels
+
+  parcelMapDetail: (x = ':x', y = ':y', marker = '') =>
     `/${x}/${y}` + (marker ? `?marker=${marker}` : ''),
 
-  marketplace: '/marketplace',
+  parcelDetail: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/detail`,
 
-  sell: '/:x/:y/sell',
-  sellLand: (x, y) => `/${x}/${y}/sell`,
+  sellParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/sell`,
+  buyParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/buy`,
+  cancelSaleParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/cancel-sale`,
 
-  buy: '/:x/:y/buy',
-  buyLand: (x, y) => `/${x}/${y}/buy`,
+  editParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/edit`,
+  manageParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/manage`,
+  transferParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/transfer`,
 
-  cancelSale: '/:x/:y/cancel-sale',
-  cancelSaleLand: (x, y) => `/${x}/${y}/cancel-sale`,
+  createEstate: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/create-estate`, // this could be /estates/create once it's parcel independent
 
-  edit: '/:x/:y/edit',
-  editLand: (x, y) => `/${x}/${y}/edit`,
+  // Estates
 
-  manage: '/:x/:y/manage',
-  manageLand: (x, y) => `/${x}/${y}/manage`,
+  estateDetail: (tokenId = ':tokenId') => `/estates/${tokenId}/detail`,
 
-  transfer: '/:x/:y/transfer',
-  transferLand: (x, y) => `/${x}/${y}/transfer`,
+  ediEstateParcels: (tokenId = ':tokenId') =>
+    `/estates/${tokenId}/edit-parcels`,
+  ediEstateMetadata: (tokenId = ':tokenId') =>
+    `/estates/${tokenId}/edit-metadata`,
 
-  estate: '/estate/:tokenId/detail',
-  estateDetail: tokenId => `/estate/${tokenId}/detail`,
-  ediEstateParcels: '/estate/:tokenId/edit-parcels',
-  editEstateParcelsRequest: () => 'edit-parcels',
-  ediEstateMetadata: '/estate/:tokenId/edit-metadata',
-  editEstateMetadataRequest: () => 'edit-metadata',
+  deleteEstate: (tokenId = ':tokenId') => `/estates/${tokenId}/delete-estate`,
 
-  deleteEstate: '/estate/:tokenId/delete-estate',
-  deleteEstatePage: tokenId => `/estate/${tokenId}/delete-estate`,
-
-  createEstate: '/:x/:y/create-estate',
-  createEstateLand: (x, y) => `/${x}/${y}/create-estate`,
-
-  buyMana: `/buy-mana`,
-  transferMana: `/transfer-mana`,
-
-  parcel: '/:x/:y/detail',
-  parcelDetail: (x, y) => `/${x}/${y}/detail`,
+  // Generic assets
 
   assetDetail: function(asset) {
     return isParcel(asset)
@@ -56,23 +47,33 @@ export const locations = {
       : this.estateDetail(asset.tokenId)
   },
 
-  settings: '/settings',
-  activity: '/activity',
+  // Mortgages
 
-  colorKey: '/colorKey',
-  privacy: '/privacy',
-  terms: '/terms',
+  buyParcelByMortgage: (x = ':x', y = ':y') => `/mortgages/${x}/${y}/buy`,
+  payMortgageParcel: (x = ':x', y = ':y') => `/mortgages/${x}/${y}/pay`,
 
-  error: '/error',
-  signIn: '/sign-in',
+  // General routes
 
-  mortgage: '/:x/:y/mortgage',
-  buyLandByMortgage: (x, y) => `/${x}/${y}/mortgage`,
-  payMortgagePath: '/:x/:y/mortgage/pay',
-  payMortgage: (x, y) => `/${x}/${y}/mortgage/pay`
+  marketplace: () => '/marketplace',
+
+  buyMana: () => '/buy-mana',
+  transferMana: () => '/transfer-mana',
+
+  settings: () => '/settings',
+  activity: () => '/activity',
+
+  colorKey: () => '/colorKey',
+  privacy: () => '/privacy',
+  terms: () => '/terms',
+
+  signIn: () => '/sign-in'
 }
 
-export const STATIC_PAGES = [locations.root, locations.privacy, locations.terms]
+export const STATIC_PAGES = [
+  locations.root(),
+  locations.privacy(),
+  locations.terms()
+]
 
 export const PROFILE_PAGE_TABS = Object.freeze({
   parcels: 'parcels',

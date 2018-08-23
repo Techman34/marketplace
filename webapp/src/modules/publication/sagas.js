@@ -75,7 +75,7 @@ function* handlePublishRequest(action) {
     }
 
     yield put(publishSuccess(txHash, publication, asset))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(publishFailure(error.message))
   }
@@ -98,7 +98,7 @@ function* handleBuyRequest(action) {
     }
 
     yield put(buySuccess(txHash, publication, asset))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(buyFailure(error.message))
   }
@@ -113,7 +113,7 @@ function* handleCancelSaleRequest(action) {
     const txHash = yield call(() => marketplaceContract.cancelOrder(asset.id))
 
     yield put(cancelSaleSuccess(txHash, action.publication, asset))
-    yield put(push(locations.activity))
+    yield put(push(locations.activity()))
   } catch (error) {
     yield put(cancelSaleFailure(error.message))
   }

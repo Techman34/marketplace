@@ -25,17 +25,16 @@ export default class ParcelOwner extends React.PureComponent {
     }
 
     if (isOwner) {
+      const { x, y } = parcel
       return (
         <span className="ParcelOwner is-owner">
           <Button size="tiny" className="link">
             <Icon name="pencil" />
-            <Link to={locations.editLand(parcel.x, parcel.y)}>
-              {t('global.edit')}
-            </Link>
+            <Link to={locations.editParcel(x, y)}>{t('global.edit')}</Link>
           </Button>
           <Button size="tiny" className="link">
             <Icon name="add user" />
-            <Link to={locations.manageLand(parcel.x, parcel.y)}>
+            <Link to={locations.manageParcel(x, y)}>
               {t('parcel_detail.actions.permissions')}
             </Link>
           </Button>

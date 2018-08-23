@@ -1,19 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { Icon, Card } from 'semantic-ui-react'
 
 import { locations } from 'locations'
-import { Icon, Card } from 'semantic-ui-react'
 import Mana from 'components/Mana'
 import ParcelPreview from 'components/ParcelPreview'
 import Expiration from 'components/Expiration'
 import ParcelTags from 'components/ParcelTags'
 import { parcelType, publicationType } from 'components/types'
-import { isMortgageActive } from 'shared/mortgage'
-import { AUCTION_DATE, buildCoordinate } from 'shared/parcel'
-import { getOpenPublication } from 'shared/asset'
 import { t } from 'modules/translation/utils'
-
+import { isMortgageActive } from 'shared/mortgage'
+import { AUCTION_DATE } from 'shared/parcel'
+import { getOpenPublication } from 'shared/asset'
 import { formatDate } from 'lib/utils'
 
 import './ParcelCard.css'
@@ -35,7 +34,6 @@ export default class ParcelCard extends React.PureComponent {
 
   renderContent() {
     const { parcel, debounce, publications, showMortgage, withMap } = this.props
-    const { x, y } = parcel
 
     const parcelName = this.props.parcel.data.name || 'Parcel'
     const publication = getOpenPublication(parcel, publications)
@@ -45,8 +43,8 @@ export default class ParcelCard extends React.PureComponent {
         {withMap && (
           <div className="preview">
             <ParcelPreview
-              x={x}
-              y={y}
+              x={parcel.x}
+              y={parcel.y}
               debounce={debounce}
               size={12}
               selected={parcel}
@@ -96,7 +94,7 @@ export default class ParcelCard extends React.PureComponent {
           <div className="footer">
             <div className="coords">
               <Icon name="marker" />
-              <span className="coord">{buildCoordinate(x, y)}</span>
+              <span className="coord">{parcel.id}</span>
             </div>
             <ParcelTags parcel={parcel} size="small" />
           </div>
@@ -107,12 +105,13 @@ export default class ParcelCard extends React.PureComponent {
 
   render() {
     const { parcel, withLink } = this.props
-    const { x, y } = parcel
 
     return (
       <Card className="ParcelCard">
         {withLink ? (
-          <Link to={locations.parcelDetail(x, y)}>{this.renderContent()}</Link>
+          <Link to={locations.parcelDetail(parcel.x, parcel.y)}>
+            {this.renderContent()}
+          </Link>
         ) : (
           this.renderContent()
         )}

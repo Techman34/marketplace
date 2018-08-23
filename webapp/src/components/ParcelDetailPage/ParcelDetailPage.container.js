@@ -17,6 +17,7 @@ const mapState = (state, ownProps) => {
   // Instanciate selectors
   const { x, y } = getMatchParams(ownProps)
   const getParcelMortgage = getParcelMortgageFactory(x, y)
+
   // Return mapStateToProps function
   return (state, ownProps) => {
     const { x, y } = getMatchParams(ownProps)
@@ -35,7 +36,6 @@ const mapDispatch = dispatch => ({
     dispatch(fetchParcelPublicationsRequest(x, y, PUBLICATION_STATUS.open)),
   onFetchActiveParcelMortgages: (x, y) =>
     dispatch(fetchActiveParcelMortgagesRequest(x, y)),
-  onBuy: ({ x, y }) => dispatch(navigateTo(locations.buyLand(x, y))),
   onAssetClick: asset => dispatch(navigateTo(locations.assetDetail(asset)))
 })
 
