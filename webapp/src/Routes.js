@@ -46,28 +46,44 @@ export default class Routes extends React.Component {
         {/*Parcels*/}
         <Route
           exact
-          path={locations.parcelDetail()}
+          path={this.addLegacySupport(locations.parcelDetail())}
           component={ParcelDetailPage}
         />
-        <Route exact path={locations.sellParcel()} component={PublishPage} />
-        <Route exact path={locations.editParcel()} component={EditParcelPage} />
         <Route
           exact
-          path={locations.transferParcel()}
+          path={this.addLegacySupport(locations.sellParcel())}
+          component={PublishPage}
+        />
+        <Route
+          exact
+          path={this.addLegacySupport(locations.editParcel())}
+          component={EditParcelPage}
+        />
+        <Route
+          exact
+          path={this.addLegacySupport(locations.transferParcel())}
           component={TransferParcelPage}
         />
         <Route
           exact
-          path={locations.manageParcel()}
+          path={this.addLegacySupport(locations.manageParcel())}
           component={ManageParcelPage}
         />
-        <Route exact path={locations.buyParcel()} component={BuyParcelPage} />
         <Route
           exact
-          path={locations.cancelSaleParcel()}
+          path={this.addLegacySupport(locations.buyParcel())}
+          component={BuyParcelPage}
+        />
+        <Route
+          exact
+          path={this.addLegacySupport(locations.cancelSaleParcel())}
           component={CancelSalePage}
         />
-        <Route exact path={locations.parcelMapDetail()} component={AtlasPage} />
+        <Route
+          exact
+          path={this.addLegacySupport(locations.parcelMapDetail())}
+          component={AtlasPage}
+        />
 
         {/*Estates*/}
         {isFeatureEnabled('ESTATES') && (
@@ -87,7 +103,7 @@ export default class Routes extends React.Component {
         {isFeatureEnabled('ESTATES') && (
           <Route
             exact
-            path={locations.ediEstateParcels()}
+            path={locations.editEstateParcels()}
             component={props => (
               <EstateDetailPage
                 isSelecting={true}
@@ -100,7 +116,7 @@ export default class Routes extends React.Component {
         {isFeatureEnabled('ESTATES') && (
           <Route
             exact
-            path={locations.ediEstateMetadata()}
+            path={locations.editEstateMetadata()}
             component={props => (
               <EstateDetailPage
                 isSelecting={false}
@@ -156,6 +172,10 @@ export default class Routes extends React.Component {
         <Redirect to={locations.root()} />
       </Switch>
     )
+  }
+
+  addLegacySupport(path) {
+    return path.replace('/parcels', '(/parcels)?')
   }
 
   render() {

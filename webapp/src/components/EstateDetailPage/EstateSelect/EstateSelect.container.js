@@ -28,8 +28,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     onError: () => dispatch(navigateTo(locations.root())),
     onCreateCancel: () => dispatch(navigateTo(locations.parcelDetail(x, y))),
-    onDeleteEstate: () =>
-      dispatch(navigateTo(locations.deleteEstatePage(tokenId)))
+    onDeleteEstate: () => dispatch(navigateTo(locations.deleteEstate(tokenId)))
   }
 }
 

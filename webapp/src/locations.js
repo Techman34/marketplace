@@ -1,5 +1,13 @@
 import { isParcel } from 'shared/parcel'
 
+const asCoordinateParam = key => `:${key}(-?\\d+)`
+const asIntParam = key => `:${key}(\\d+)`
+const params = {
+  x: asCoordinateParam('x'),
+  y: asCoordinateParam('y'),
+  tokenId: asIntParam('tokenId')
+}
+
 export const locations = {
   root: () => '/',
 
@@ -13,31 +21,34 @@ export const locations = {
 
   // Parcels
 
-  parcelMapDetail: (x = ':x', y = ':y', marker = '') =>
+  parcelMapDetail: (x = params.x, y = params.y, marker = '') =>
     `/${x}/${y}` + (marker ? `?marker=${marker}` : ''),
 
-  parcelDetail: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/detail`,
+  parcelDetail: (x = params.x, y = params.y) => `/parcels/${x}/${y}/detail`,
 
-  sellParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/sell`,
-  buyParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/buy`,
-  cancelSaleParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/cancel-sale`,
+  sellParcel: (x = params.x, y = params.y) => `/parcels/${x}/${y}/sell`,
+  buyParcel: (x = params.x, y = params.y) => `/parcels/${x}/${y}/buy`,
+  cancelSaleParcel: (x = params.x, y = params.y) =>
+    `/parcels/${x}/${y}/cancel-sale`,
 
-  editParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/edit`,
-  manageParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/manage`,
-  transferParcel: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/transfer`,
+  editParcel: (x = params.x, y = params.y) => `/parcels/${x}/${y}/edit`,
+  manageParcel: (x = params.x, y = params.y) => `/parcels/${x}/${y}/manage`,
+  transferParcel: (x = params.x, y = params.y) => `/parcels/${x}/${y}/transfer`,
 
-  createEstate: (x = ':x', y = ':y') => `(/parcels)?/${x}/${y}/create-estate`, // this could be /estates/create once it's parcel independent
+  createEstate: (x = params.x, y = params.y) =>
+    `/parcels/${x}/${y}/create-estate`, // this could be /estates/create once it's parcel independent
 
   // Estates
 
-  estateDetail: (tokenId = ':tokenId') => `/estates/${tokenId}/detail`,
+  estateDetail: (tokenId = params.tokenId) => `/estates/${tokenId}/detail`,
 
-  ediEstateParcels: (tokenId = ':tokenId') =>
+  ediEstateParcels: (tokenId = params.tokenId) =>
     `/estates/${tokenId}/edit-parcels`,
-  ediEstateMetadata: (tokenId = ':tokenId') =>
+  ediEstateMetadata: (tokenId = params.tokenId) =>
     `/estates/${tokenId}/edit-metadata`,
 
-  deleteEstate: (tokenId = ':tokenId') => `/estates/${tokenId}/delete-estate`,
+  deleteEstate: (tokenId = params.tokenId) =>
+    `/estates/${tokenId}/delete-estate`,
 
   // Generic assets
 
@@ -49,8 +60,9 @@ export const locations = {
 
   // Mortgages
 
-  buyParcelByMortgage: (x = ':x', y = ':y') => `/mortgages/${x}/${y}/buy`,
-  payMortgageParcel: (x = ':x', y = ':y') => `/mortgages/${x}/${y}/pay`,
+  buyParcelByMortgage: (x = params.x, y = params.y) =>
+    `/mortgages/${x}/${y}/buy`,
+  payMortgageParcel: (x = params.x, y = params.y) => `/mortgages/${x}/${y}/pay`,
 
   // General routes
 
