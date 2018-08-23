@@ -12,8 +12,7 @@ import Mana from 'components/Mana'
 import { transactionType } from 'components/types'
 import { formatDate, formatMana, distanceInWordsToNow } from 'lib/utils'
 import { buildCoordinate } from 'shared/parcel'
-import { isNewAsset } from 'shared/asset'
-import { calculateZoomAndCenter } from 'shared/estate'
+import { isNewEstate, calculateZoomAndCenter } from 'shared/estate'
 import {
   getMarketplaceAddress,
   getMortgageHelperAddress,
@@ -114,8 +113,8 @@ export default class Transaction extends React.PureComponent {
     )
   }
 
-  renderEstateLink(tokenId) {
-    return <Link to={locations.estateDetail(tokenId)}>{tokenId}</Link>
+  renderEstateLink(estateId) {
+    return <Link to={locations.estateDetail(estateId)}>{estateId}</Link>
   }
 
   renderText() {
@@ -274,7 +273,7 @@ export default class Transaction extends React.PureComponent {
       case EDIT_ESTATE_PARCELS_SUCCESS: {
         const { estate, type, parcels } = payload
         return t_html('transaction.edit_estate_parcels', {
-          estate_id: this.renderEstateLink(estate.token_id),
+          estate_id: this.renderEstateLink(estate.id),
           action:
             type === ADD_PARCELS ? t('global.added') : t('global.removed'),
           parcels_link: this.renderParcelsLink(parcels)
@@ -283,7 +282,7 @@ export default class Transaction extends React.PureComponent {
       case EDIT_ESTATE_METADATA_SUCCESS: {
         const { estate } = payload
         return t_html('transaction.edit_estate_metadata', {
-          estate_id: this.renderEstateLink(estate.token_id),
+          estate_id: this.renderEstateLink(estate.id),
           name: estate.data.name,
           description: estate.data.description
         })
@@ -291,7 +290,7 @@ export default class Transaction extends React.PureComponent {
       case DELETE_ESTATE_SUCCESS: {
         const { estate } = payload
         return t_html('transaction.delete_estate', {
-          estate_id: estate.token_id
+          estate_id: estate.id
         })
       }
       default:
@@ -306,9 +305,9 @@ export default class Transaction extends React.PureComponent {
     return (
       <Link
         to={
-          isNewAsset(estate)
+          isNewEstate(estate)
             ? locations.parcelMapDetail(x, y, buildCoordinate(x, y))
-            : locations.estateDetail(estate.token_id)
+            : locations.estateDetail(estate.id)
         }
       >
         <ParcelPreview

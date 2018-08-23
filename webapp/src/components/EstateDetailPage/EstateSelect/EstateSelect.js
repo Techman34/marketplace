@@ -30,10 +30,7 @@ export default class EstateSelect extends React.PureComponent {
   }
 
   getParcelClickHandler = wallet => (asset, { x, y }) => {
-    if (
-      !isOwner(wallet, buildCoordinate(x, y)) &&
-      !isOwner(wallet, asset.token_id)
-    ) {
+    if (!isOwner(wallet, buildCoordinate(x, y)) && !isOwner(wallet, asset.id)) {
       return
     }
 
@@ -147,7 +144,7 @@ export default class EstateSelect extends React.PureComponent {
     } = this.props
 
     const parcels = estate.data.parcels
-    const canEdit = isCreation || isOwner(wallet, estate.token_id)
+    const canEdit = isCreation || isOwner(wallet, estate.id)
 
     return (
       <div className="EstateSelect">
@@ -172,7 +169,7 @@ export default class EstateSelect extends React.PureComponent {
                 </Header>
               </Grid.Column>
               {!isCreation &&
-                isOwner(wallet, estate.token_id) && (
+                isOwner(wallet, estate.id) && (
                   <Grid.Column
                     width={8}
                     className={'selected-parcels-headline'}

@@ -5,7 +5,7 @@ const asIntParam = key => `:${key}(\\d+)`
 const params = {
   x: asCoordinateParam('x'),
   y: asCoordinateParam('y'),
-  tokenId: asIntParam('tokenId')
+  estateId: asIntParam('id')
 }
 
 export const locations = {
@@ -40,22 +40,19 @@ export const locations = {
 
   // Estates
 
-  estateDetail: (tokenId = params.tokenId) => `/estates/${tokenId}/detail`,
+  estateDetail: (id = params.estateId) => `/estates/${id}/detail`,
 
-  editEstateParcels: (tokenId = params.tokenId) =>
-    `/estates/${tokenId}/edit-parcels`,
-  editEstateMetadata: (tokenId = params.tokenId) =>
-    `/estates/${tokenId}/edit-metadata`,
+  editEstateParcels: (id = params.estateId) => `/estates/${id}/edit-parcels`,
+  editEstateMetadata: (id = params.estateId) => `/estates/${id}/edit-metadata`,
 
-  deleteEstate: (tokenId = params.tokenId) =>
-    `/estates/${tokenId}/delete-estate`,
+  deleteEstate: (id = params.estateId) => `/estates/${id}/delete-estate`,
 
   // Generic assets
 
   assetDetail: function(asset) {
     return isParcel(asset)
       ? this.parcelDetail(asset.x, asset.y)
-      : this.estateDetail(asset.tokenId)
+      : this.estateDetail(asset.id)
   },
 
   // Mortgages

@@ -8,11 +8,12 @@ import { getInitialEstate } from 'shared/estate'
 
 import Estate from './Estate'
 
-const mapState = (state, { tokenId, x, y }) => {
+const mapState = (state, { id, x, y }) => {
   const estates = getEstates(state)
-  const estate = tokenId ? estates[tokenId] : getInitialEstate(x, y)
-  const isLoading = tokenId
-    ? getLoading(state).some(estate => estate.token_id === tokenId)
+
+  const estate = id ? estates[id] : getInitialEstate(x, y)
+  const isLoading = id
+    ? getLoading(state).some(estate => estate.id === id)
     : false
 
   return {
@@ -21,9 +22,9 @@ const mapState = (state, { tokenId, x, y }) => {
   }
 }
 
-const mapDispatch = (dispatch, { tokenId }) => ({
-  onLoaded: () => tokenId && dispatch(fetchEstateRequest(tokenId)),
-  onAccessDenied: () => dispatch(push(locations.estateDetail(tokenId)))
+const mapDispatch = (dispatch, { id }) => ({
+  onLoaded: () => (id ? dispatch(fetchEstateRequest(id)) : null),
+  onAccessDenied: () => dispatch(push(locations.estateDetail(id)))
 })
 
 export default connect(mapState, mapDispatch)(Estate)

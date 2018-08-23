@@ -8,10 +8,10 @@ import EstateDetailPage from 'components/EstateDetailPage/EstateDetailPage'
 import { getData as getParcels } from 'modules/parcels/selectors'
 
 const mapState = (state, ownProps) => {
-  const { tokenId, x, y } = getMatchParams(ownProps)
+  const { id, x, y } = getMatchParams(ownProps)
 
   return {
-    tokenId,
+    id,
     x: parseInt(x, 10),
     y: parseInt(y, 10),
     allParcels: getParcels(state)
@@ -19,15 +19,13 @@ const mapState = (state, ownProps) => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-  const { tokenId } = getMatchParams(ownProps)
+  const { id } = getMatchParams(ownProps)
 
   return {
     onViewAssetClick: asset =>
       dispatch(navigateTo(locations.assetDetail(asset))),
-    onEditParcels: () =>
-      dispatch(navigateTo(locations.editEstateParcels(tokenId))),
-    onEditMetadata: () =>
-      dispatch(navigateTo(locations.editEstateMetadata(tokenId)))
+    onEditParcels: () => dispatch(navigateTo(locations.editEstateParcels(id))),
+    onEditMetadata: () => dispatch(navigateTo(locations.editEstateMetadata(id)))
   }
 }
 

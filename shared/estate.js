@@ -1,11 +1,11 @@
 import { getCoordsMatcher } from './parcel'
 
-export function isEstate(asset) {
-  return !!asset.data.parcels
+export function isNewEstate(estate) {
+  return !estate || !estate.token_id
 }
 
-export function getEstateByParcel(parcel, estates) {
-  return estates[parcel.estate_id]
+export function isEstate(asset) {
+  return !!asset.data.parcels
 }
 
 export function toEstateObject(estatesArray) {

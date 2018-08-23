@@ -13,9 +13,9 @@ import './EstateDetail.css'
 export default class EstateDetail extends React.PureComponent {
   static propTypes = {
     estate: estateType.isRequired,
+    allParcels: PropTypes.objectOf(parcelType),
     isOwner: PropTypes.bool.isRequired,
     onViewAssetClick: PropTypes.func.isRequired,
-    allParcels: PropTypes.objectOf(parcelType),
     onEditParcels: PropTypes.func.isRequired,
     onEditMetadata: PropTypes.func.isRequired
   }
