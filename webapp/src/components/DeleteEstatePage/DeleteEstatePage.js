@@ -8,15 +8,15 @@ import { t } from 'modules/translation/utils'
 
 export default class DeleteEstatePage extends React.PureComponent {
   static props = {
-    assetId: PropTypes.string.isRequired,
+    tokenId: PropTypes.string.isRequired,
     isTxIdle: PropTypes.bool.isRequired,
     onCancel: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired
   }
   render() {
-    const { assetId, isTxIdle, onCancel, onConfirm } = this.props
+    const { tokenId, isTxIdle, onCancel, onConfirm } = this.props
     return (
-      <Estate assetId={assetId} ownerOnly>
+      <Estate tokenId={tokenId} ownerOnly>
         {estate => (
           <React.Fragment>
             <EstateModal

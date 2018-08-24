@@ -58,7 +58,7 @@ export default class EstateDetail extends React.PureComponent {
                 <Grid.Column className="parcel-actions-container" computer={8}>
                   <EstateActions
                     onEditMetadata={onEditMetadata}
-                    assetId={estate.asset_id}
+                    tokenId={estate.token_id}
                   />
                 </Grid.Column>
               )}
