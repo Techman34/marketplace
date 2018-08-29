@@ -11,9 +11,6 @@ import { buildCoordinate } from 'shared/parcel'
 import EstateActions from './EstateActions'
 import './EstateDetail.css'
 
-const WITH_ACTION_BUTTONS_WIDTH = 8
-const WITHOUT_ACTION_BUTTONS_WIDTH = 16
-
 export default class EstateDetail extends React.PureComponent {
   static propTypes = {
     estate: estateType.isRequired,
@@ -43,10 +40,7 @@ export default class EstateDetail extends React.PureComponent {
         <Container>
           <Grid className="details">
             <Grid.Row>
-              <Grid.Column
-                width={WITH_ACTION_BUTTONS_WIDTH}
-                className="parcels"
-              >
+              <Grid.Column width={8} className="parcels">
                 <Header size="large">
                   <p className="estate-title">
                     {estate.data.name || t('estate_select.detail')}
@@ -73,15 +67,7 @@ export default class EstateDetail extends React.PureComponent {
               </Grid.Column>
               {allParcels && (
                 <React.Fragment>
-                  <Grid.Column
-                    computer={
-                      isOwner
-                        ? WITH_ACTION_BUTTONS_WIDTH
-                        : WITHOUT_ACTION_BUTTONS_WIDTH
-                    }
-                    mobile={WITHOUT_ACTION_BUTTONS_WIDTH}
-                    className={'selected-parcels-headline'}
-                  >
+                  <Grid.Column width={16} className="selected-parcels-headline">
                     <h3 className="parcels-included">
                       {t('estate_detail.parcels')}
                       {isOwner && (
@@ -96,7 +82,7 @@ export default class EstateDetail extends React.PureComponent {
                       )}
                     </h3>
                   </Grid.Column>
-                  <Grid.Column width={16} className={'selected-parcels'}>
+                  <Grid.Column width={16} className="selected-parcels">
                     {parcels.map(({ x, y }) => {
                       const parcel = allParcels[buildCoordinate(x, y)]
                       return parcel ? (
